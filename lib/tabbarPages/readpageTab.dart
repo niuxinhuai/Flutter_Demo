@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Const/API.dart';
 import 'package:flutter_app/flutter_util/FontUtil.dart';
 import 'package:flutter_app/flutter_util/StringUtil.dart';
+// ignore: uri_does_not_exist
 import 'package:http/http.dart' as http;
 //import './flutter_util/FontUtil.dart';
 
@@ -65,10 +67,20 @@ class _FirstTabState extends State<readpageTab> {
     return GestureDetector(
       child: Padding(
           padding: EdgeInsets.all(10.0),
-          child: Text(
-            "Row ${widgets[i]["title"]}",
-            style: TextStyle(fontFamily: FontUtil.sxslst),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(3.0)),
+            ),
+            elevation: 5.0,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                "Row ${widgets[i]["title"]}",
+                style: TextStyle(fontFamily: FontUtil.sxslst),
+              ),
+            ),
           ),
+
       ),
       onTap: () { print(i); },
     );
@@ -100,7 +112,7 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
   }
 
   loadSyncData() async {
-    String url = "https://jsonplaceholder.typicode.com/posts";
+    String url = API.posts;
     http.Response response = await http.get(url);
     setState(() {
       print(response.body.length);
