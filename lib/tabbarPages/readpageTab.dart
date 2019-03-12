@@ -28,7 +28,8 @@ class _FirstTabState extends State<readpageTab> {
     // TODO: implement initState
     super.initState();
     print(StringUtil.welcomeMessage);
-    loadSyncData();
+//    loadSyncData();
+    loadList();
   }
 
   @override
@@ -55,6 +56,7 @@ class _FirstTabState extends State<readpageTab> {
 
   ListView getListView() => ListView.builder(
     itemCount: widgets.length,
+
     itemBuilder: (BuildContext context, int position) {
       return getRow(position);
     });
@@ -65,6 +67,7 @@ class _FirstTabState extends State<readpageTab> {
 
   Widget getRow(int i) {
     return GestureDetector(
+
       child: Padding(
           padding: EdgeInsets.all(10.0),
           child: Card(
@@ -73,11 +76,12 @@ class _FirstTabState extends State<readpageTab> {
             ),
             elevation: 5.0,
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Text(
-                "Row ${widgets[i]["title"]}",
-                style: TextStyle(fontFamily: FontUtil.sxslst),
-              ),
+              padding: EdgeInsets.only(top: 10,left: 15,bottom: 10,right: 60),
+              child: widgetItem(i),
+//              child: Text(
+//                "Row ${widgets[i]["title"]}",
+//                style: TextStyle(fontFamily: FontUtil.sxslst),
+//              ),
             ),
           ),
 
@@ -111,12 +115,85 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
     * */
   }
 
+  Widget widgetItem(int i) {
+
+    var widget = Row(
+      children: <Widget>[
+        Expanded(
+          child: _buildItemLeftSide(i),
+        ),
+      ],
+    );
+    
+    
+    return widget;
+        
+  }
+
+  Widget _buildItemLeftSide(int i) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: widgetTitleLabelRow(i),
+    );
+  }
+
+  List<Widget> widgetTitleLabelRow(int i) {
+    List<Widget> list = List();
+    list.add(Text(
+      "Row ${widgets[i]["title"]}",
+      style: TextStyle(
+        fontFamily: FontUtil.sxslst,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: Colors.black54,
+      ),
+      textAlign: TextAlign.left,
+    ));
+
+    list.add(Padding(
+      padding: EdgeInsets.only(top: 5),
+      child: Text(
+        "Row ${widgets[i]["niceDate"]}",
+        style: TextStyle(
+          color: Colors.blueGrey,
+          fontSize: 13,
+        ),
+      ),
+    ));
+
+    list.add(Padding(
+      padding: EdgeInsets.only(top: 5,bottom: 10),
+      child: Text(
+        "Row ${widgets[i]["chapterName"]}",
+        style: TextStyle(
+          color: Colors.lightGreen,
+          fontSize: 13,
+        ),
+      ),
+    ));
+
+
+    return list;
+
+  }
+
   loadSyncData() async {
     String url = API.posts;
     http.Response response = await http.get(url);
     setState(() {
-      print(response.body.length);
+//      print(response.body.length);
       widgets = json.decode(response.body);
+    });
+  }
+
+  loadList() async {
+    String url = "${API.home_list}${1}/json";
+    http.Response response = await http.get(url);
+    setState(() {
+      print(json.decode(response.body)["data"]["datas"]);
+      widgets = json.decode(response.body)["data"]["datas"];
+
     });
   }
 }
