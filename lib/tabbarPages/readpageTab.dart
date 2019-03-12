@@ -28,7 +28,6 @@ class _FirstTabState extends State<readpageTab> {
     // TODO: implement initState
     super.initState();
     print(StringUtil.welcomeMessage);
-//    loadSyncData();
     loadList();
   }
 
@@ -78,10 +77,6 @@ class _FirstTabState extends State<readpageTab> {
             child: Padding(
               padding: EdgeInsets.only(top: 10,left: 15,bottom: 10,right: 60),
               child: widgetItem(i),
-//              child: Text(
-//                "Row ${widgets[i]["title"]}",
-//                style: TextStyle(fontFamily: FontUtil.sxslst),
-//              ),
             ),
           ),
 
@@ -124,8 +119,7 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
         ),
       ],
     );
-    
-    
+
     return widget;
         
   }
@@ -173,18 +167,8 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
       ),
     ));
 
-
     return list;
 
-  }
-
-  loadSyncData() async {
-    String url = API.posts;
-    http.Response response = await http.get(url);
-    setState(() {
-//      print(response.body.length);
-      widgets = json.decode(response.body);
-    });
   }
 
   loadList() async {
