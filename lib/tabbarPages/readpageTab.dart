@@ -7,6 +7,7 @@ import 'package:flutter_app/flutter_util/StringUtil.dart';
 import 'package:http/http.dart' as http;
 //import './flutter_util/FontUtil.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
 void main() {
   runApp(readpageTab());
 }
@@ -81,7 +82,7 @@ class _FirstTabState extends State<readpageTab> {
           ),
 
       ),
-      onTap: () { print(i); },
+      onTap: () { print(widgets[i]["link"]); },
     );
 
     /*
@@ -116,6 +117,10 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
       children: <Widget>[
         Expanded(
           child: _buildItemLeftSide(i),
+        ),
+        Container(
+          width: 30,
+          child: CachedNetworkImage(imageUrl: widgets[i]["envelopePic"]),
         ),
       ],
     );
@@ -172,7 +177,7 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
   }
 
   loadList() async {
-    String url = "${API.home_list}${1}/json";
+    String url = "${API.home_list}${2}/json";
     http.Response response = await http.get(url);
     setState(() {
       print(json.decode(response.body)["data"]["datas"]);
