@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Const/API.dart';
 import 'package:flutter_app/flutter_util/FontUtil.dart';
 import 'package:flutter_app/flutter_util/StringUtil.dart';
-// ignore: uri_does_not_exist
 import 'package:http/http.dart' as http;
-//import './flutter_util/FontUtil.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 void main() {
@@ -30,6 +28,13 @@ class _FirstTabState extends State<readpageTab> {
     super.initState();
     print(StringUtil.welcomeMessage);
     loadList();
+    try {
+
+    } catch (e) { // 处理异常
+      print('Something really unknow: $e');
+    } finally { // 然后清理
+
+    }
   }
 
   @override
@@ -140,7 +145,7 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
   List<Widget> widgetTitleLabelRow(int i) {
     List<Widget> list = List();
     list.add(Text(
-      "Row ${widgets[i]["title"]}",
+      "${widgets[i]["title"]}",
       style: TextStyle(
         fontFamily: FontUtil.sxslst,
         fontSize: 16,
@@ -153,7 +158,7 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
     list.add(Padding(
       padding: EdgeInsets.only(top: 5),
       child: Text(
-        "Row ${widgets[i]["niceDate"]}",
+        "${widgets[i]["niceDate"]}",
         style: TextStyle(
           color: Colors.blueGrey,
           fontSize: 13,
@@ -164,7 +169,7 @@ onHorizontalDragEnd — 之前接触屏幕并水平移动的触摸点与屏幕�
     list.add(Padding(
       padding: EdgeInsets.only(top: 5,bottom: 10),
       child: Text(
-        "Row ${widgets[i]["chapterName"]}",
+        "${widgets[i]["chapterName"]}",
         style: TextStyle(
           color: Colors.lightGreen,
           fontSize: 13,
